@@ -1,0 +1,882 @@
+basePath: 127.0.0.1:8000
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Api of WxMall
+  license:
+    name: Apache 2.0
+  title: Golang WxMall API
+  version: "1.0"
+paths:
+  /admin/info:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取AuthData
+  /admin/order/{id}/express:
+    post:
+      parameters:
+      - description: 要修改的订单id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 物流公司
+        in: body
+        name: expressTitle
+        required: true
+        schema:
+          type: string
+      - description: 物流编号
+        in: body
+        name: expressCode
+        required: true
+        schema:
+          type: string
+      - description: 物流单号
+        in: body
+        name: expressNo
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改订单快递信息
+  /admin/product/:
+    post:
+      parameters:
+      - description: 商品名
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: 封面图
+        in: body
+        name: cover
+        required: true
+        schema:
+          type: string
+      - description: 图集
+        in: body
+        name: carousel
+        required: true
+        schema:
+          type: string
+      - description: 商品品牌
+        in: body
+        name: brand
+        required: true
+        schema:
+          type: string
+      - description: 商品系列名
+        in: body
+        name: series
+        required: true
+        schema:
+          type: string
+      - description: 零售价
+        in: body
+        name: price
+        required: true
+        schema:
+          type: number
+      - description: 商品售价
+        in: body
+        name: selling_price
+        required: true
+        schema:
+          type: number
+      - description: 商品成本价
+        in: body
+        name: cost
+        required: true
+        schema:
+          type: number
+      - description: 商品标签
+        in: body
+        name: tags
+        schema:
+          type: string
+      - description: 销量
+        in: body
+        name: sales
+        schema:
+          type: integer
+      - description: 库存
+        in: body
+        name: inventory
+        schema:
+          type: integer
+      - description: 状态,0-下架 1-上架
+        in: body
+        name: status
+        schema:
+          type: integer
+      - description: 状态,0-未折扣 1-折扣中
+        in: body
+        name: on_sale
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 添加商品信息
+  /admin/product/{oid}:
+    delete:
+      parameters:
+      - description: 要移除的商品id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 删除商品
+    put:
+      parameters:
+      - description: 要修改信息的id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 商品名
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: 封面图
+        in: body
+        name: cover
+        required: true
+        schema:
+          type: string
+      - description: 图集
+        in: body
+        name: carousel
+        required: true
+        schema:
+          type: string
+      - description: 商品品牌
+        in: body
+        name: brand
+        required: true
+        schema:
+          type: string
+      - description: 商品系列名
+        in: body
+        name: series
+        required: true
+        schema:
+          type: string
+      - description: 零售价
+        in: body
+        name: price
+        required: true
+        schema:
+          type: number
+      - description: 商品售价
+        in: body
+        name: selling_price
+        required: true
+        schema:
+          type: number
+      - description: 商品成本价
+        in: body
+        name: cost
+        required: true
+        schema:
+          type: number
+      - description: 商品标签
+        in: body
+        name: tags
+        required: true
+        schema:
+          type: string
+      - description: 销量
+        in: body
+        name: sales
+        schema:
+          type: integer
+      - description: 库存
+        in: body
+        name: inventory
+        schema:
+          type: integer
+      - description: 状态,0-下架 1-上架
+        in: body
+        name: status
+        schema:
+          type: integer
+      - description: 状态,0-未折扣 1-折扣中
+        in: body
+        name: on_sale
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改商品信息
+  /adminUserLogin:
+    post:
+      parameters:
+      - description: 用户名
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: 密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 管理员登录
+  /api/v1/banner/:num:
+    get:
+      parameters:
+      - description: num获取轮播图数量
+        in: path
+        name: num
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取轮播图
+  /api/v1/product/favorite:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取收藏列表
+  /api/v1/product/index:
+    get:
+      parameters:
+      - description: brand品牌
+        in: query
+        name: brand
+        type: string
+      - description: series系列
+        in: query
+        name: series
+        type: string
+      - description: page页数
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 商品列表
+  /api/v1/product/info/:id:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 根据id获取商品信息
+  /api/v1/product/search:
+    get:
+      parameters:
+      - description: 根据标签搜索
+        in: query
+        name: tag
+        type: string
+      - description: 根据商品名搜索
+        in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 搜索
+  /api/v1/user/address:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 初始化购物车列表
+    post:
+      parameters:
+      - description: 省份
+        in: body
+        name: provinceName
+        required: true
+        schema:
+          type: string
+      - description: 城市
+        in: body
+        name: cityName
+        required: true
+        schema:
+          type: string
+      - description: 县
+        in: body
+        name: countyName
+        required: true
+        schema:
+          type: string
+      - description: 详细地址
+        in: body
+        name: detailInfo
+        required: true
+        schema:
+          type: string
+      - description: 邮政编码
+        in: body
+        name: postalCode
+        required: true
+        schema:
+          type: string
+      - description: 收货地址国家码
+        in: body
+        name: nationalCode
+        required: true
+        schema:
+          type: string
+      - description: 收货人
+        in: body
+        name: userName
+        required: true
+        schema:
+          type: string
+      - description: 收货人手机号
+        in: body
+        name: telNumber
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 新建收货地址
+    put:
+      parameters:
+      - description: 省份
+        in: body
+        name: provinceName
+        required: true
+        schema:
+          type: string
+      - description: 城市
+        in: body
+        name: cityName
+        required: true
+        schema:
+          type: string
+      - description: 县
+        in: body
+        name: countyName
+        required: true
+        schema:
+          type: string
+      - description: 详细地址
+        in: body
+        name: detailInfo
+        required: true
+        schema:
+          type: string
+      - description: 邮政编码
+        in: body
+        name: postalCode
+        required: true
+        schema:
+          type: string
+      - description: 收货地址国家码
+        in: body
+        name: nationalCode
+        required: true
+        schema:
+          type: string
+      - description: 收货人
+        in: body
+        name: userName
+        required: true
+        schema:
+          type: string
+      - description: 收货人手机号
+        in: body
+        name: telNumber
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改收货地址信息
+  /api/v1/user/address/{id}:
+    delete:
+      parameters:
+      - description: 要移除的收货地址id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 删除收货地址
+    put:
+      parameters:
+      - description: 要设置默认收货地址id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 设置默认收货地址
+  /api/v1/user/edit:
+    put:
+      parameters:
+      - description: 昵称
+        in: body
+        name: nickname
+        schema:
+          type: string
+      - description: 头像地址
+        in: body
+        name: avatar
+        schema:
+          type: string
+      - description: 性别 1-男 2-女
+        in: body
+        name: sex
+        schema:
+          type: integer
+      - description: 简介
+        in: body
+        name: introduction
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 修改用户信息
+  /api/v1/user/favorite:
+    post:
+      parameters:
+      - description: 商品ID
+        in: query
+        name: pId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 添加到收藏夹
+  /api/v1/user/favorite/{id}:
+    delete:
+      parameters:
+      - description: 要移除的商品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 从收藏夹移除
+  /api/v1/user/login:
+    post:
+      parameters:
+      - description: mobile
+        in: body
+        name: mobile
+        required: true
+        schema:
+          type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 用户登录
+  /api/v1/user/order:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取所有订单信息
+    post:
+      parameters:
+      - description: 购物车IDs
+        in: body
+        name: cartIds
+        required: true
+        schema:
+          type: integer
+      - description: 地址ID
+        in: body
+        name: addressId
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 新建订单
+  /api/v1/user/order/:id/pay:
+    post:
+      parameters:
+      - description: 要支付的订单id
+        in: path
+        name: oid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 支付订单
+  /api/v1/user/order/{id}:
+    delete:
+      parameters:
+      - description: 要移除的id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 销毁订单
+    get:
+      parameters:
+      - description: 要查询的订单id
+        in: path
+        name: oid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看订单包含的商品
+  /api/v1/user/register:
+    post:
+      parameters:
+      - description: 手机号
+        in: body
+        name: mobile
+        required: true
+        schema:
+          type: string
+      - description: 密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 注册用户
+  /api/v1/user/shoppingCart:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 初始化购物车列表
+    post:
+      parameters:
+      - description: 商品ID
+        in: body
+        name: pId
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 添加到购物车
+  /api/v1/user/shoppingCart/{id}:
+    delete:
+      parameters:
+      - description: 要移除的购物车id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 从购物车移除
+  /api/v1/user/shoppingCart/{id}/number:
+    delete:
+      parameters:
+      - description: 要减少的购物车id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 减少购物车商品数量
+swagger: "2.0"
