@@ -3,17 +3,17 @@ This is a simple wechat mall code based on Gin framework development (Golang).
 The following is the project directory structure：
 
 ```text
-| folder      | Description |
-| --- | ----------- |
-| conf  |   configuration   |
-| controller  | api     |
-|middleware| jwt···|
-|models |···|
-|routers  |···|
-|pkg|utils|
-|go.mod| package management|
-|go.sum|same as above|
-|mian.go|entrance|
+| folder     | Description       |
+| ---------- | ----------------- |
+| conf       | configuration     |
+| controller | api               |
+| middleware | jwt···            |
+| models     | ···               |
+| routers    | ···               |
+| pkg        | utils             |
+| go.mod     | package management|
+| go.sum     | same as above     |
+| mian.go    | entrance          |
 ```
 
 We can manage projects using <kbd>Go Mod</kbd> which is very convenient. You can find out how to implement Gomod. (It is important to understand files ***go.mod*** and ***go.sum***.)
